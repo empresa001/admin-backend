@@ -26,9 +26,4 @@ exports.verificaToken = function(req, res, next) {
                 }); */
     });
 
-}
-
-/* app.use('/', (req, res, next) => {
-
-
-}); */
+};
