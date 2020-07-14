@@ -7,7 +7,6 @@ var app = express();
 var Usuario = require('../models/usuario');
 var Medico = require('../models/medico');
 var Hospital = require('../models/hospital');
-const usuario = require('../models/usuario');
 
 app.use(fileUpload());
 
