@@ -1,17 +1,27 @@
 // Requires
 var express = require('express');
-var mongoose = require('mongoose');
+
+// Cambio 2 en actualizacion de curso
+require('dotenv').config();
+
+// Cambio 1 en actualizacion de curso
+const { dbConnection } = require('./database/config');
+
+// var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
+
 const cors = require('cors');
 
 // Inicializando variables
 var app = express();
 
-// CORS
+dbConnection();
+
+// Configuracion CORS
 const corsOptions = {
     origin: 'http://localhost:4200', // Aquí va el origen, puede ser un arreglo
     optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
-};
+}; //???
 
 app.use(cors(corsOptions));
 /* app.all('*', function(req, res, next) {
@@ -42,12 +52,12 @@ var uploadRoutes = require('./routes/upload');
 var imagenesRoutes = require('./routes/imagenes');
 
 // Conexcion a la base de datos
-mongoose.connection.openUri('mongodb://localhost:27017/hospitalDB', (err, res) => {
+/* mongoose.connection.openUri('mongodb://localhost:27017/hospitalDB', (err, res) => {
 
     if (err) throw err;
     console.log('Base de datos: \x1b[2m%s\x1b[0m', 'online');
 
-});
+}); */
 
 // Server index config
 /* var serveIndex = require('serve-index');
@@ -67,6 +77,6 @@ app.use('/', appRoutes);
 
 // Escuchando peticion de inicio
 
-app.listen(3000, () => {
+app.listen(process.env.PORT, () => {
     console.log('Servidor online en el puerto 3000: \x1b[2m%s\x1b[0m', 'online');
 });
