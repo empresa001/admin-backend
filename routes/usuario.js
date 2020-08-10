@@ -1,9 +1,12 @@
-var express = require('express');
+const { Router } = require('express');
+const { check } = require('express-validator');
+const { getUsuarios, crearUsuarios } = require('../controllers/usuarios');
+
+const router = Router();
+
 var bcrypt = require('bcryptjs');
 
 var mdAutenticacion = require('../middlewares/autenticacion');
-
-var app = express();
 
 var Usuarios = require('../models/usuario');
 
@@ -11,7 +14,18 @@ var Usuarios = require('../models/usuario');
 // Obtiene todos los usuarios
 // ========================================
 
-app.get('/', (request, response, next) => {
+/* Ruta: /api/usuarios*/
+
+router.get('/', getUsuarios);
+router.post('/', [
+        check('nombre', 'El nombre es obligatorio').not().isEmpty(),
+        check('password', 'La contraseña es obligatoria').not().isEmpty(),
+        check('email', 'El correo electronico es obligatorio').not().isEmpty(),
+    ],
+    crearUsuarios
+);
+
+/* router.get('/', (request, response, next) => {
 
     var desde = request.query.desde || 0;
     desde = Number(desde);
@@ -166,6 +180,6 @@ app.put('/:id', mdAutenticacion.verificaToken, (request, response) => {
 
     });
 
-});
+});*/
 
-module.exports = app;
+module.exports = router;
