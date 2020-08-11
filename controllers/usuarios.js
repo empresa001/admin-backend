@@ -1,6 +1,7 @@
 const { response } = require('express');
+var bcrypt = require('bcryptjs');
+
 const Usuario = require('../models/usuario');
-const { validationResult } = require('express-validator');
 
 const getUsuarios = async(req, res) => {
     const usuarios = await Usuario.find({}, 'nombre email role google');
@@ -15,16 +16,7 @@ const getUsuarios = async(req, res) => {
 
 const crearUsuarios = async(req, res = response) => {
 
-    const { email, password, nombre } = req.body;
-
-    const errores = validationResult(req);
-
-    if (!errores.isEmpty()) {
-        return res.status(400).json({
-            ok: false,
-            errors: errores.mapped()
-        });
-    }
+    const { email, password } = req.body;
 
     try {
 
@@ -38,6 +30,11 @@ const crearUsuarios = async(req, res = response) => {
         }
 
         const usuario = new Usuario(req.body);
+
+        // Encriptar contrasena
+        const salt = bcrypt.genSaltSync();
+        usuario.password = bcrypt.hashSync(password, salt);
+
         await usuario.save();
         res.json({
 
@@ -55,7 +52,28 @@ const crearUsuarios = async(req, res = response) => {
     }
 };
 
+const actualizarUsuarios = async(req, res = response) => {
+
+    const uid = req.params.id;
+
+    try {
+
+        res.json({
+            ok: true,
+            uid
+        });
+
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            ok: false,
+            msg: 'Error inesperado...'
+        });
+    }
+};
+
 module.exports = {
     getUsuarios,
-    crearUsuarios
+    crearUsuarios,
+    actualizarUsuarios
 };

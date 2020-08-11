@@ -1,28 +1,37 @@
 const { Router } = require('express');
 const { check } = require('express-validator');
-const { getUsuarios, crearUsuarios } = require('../controllers/usuarios');
+const { validarCampos } = require('../middlewares/validar-campos');
 
+const { getUsuarios, crearUsuarios, actualizarUsuarios } = require('../controllers/usuarios');
 const router = Router();
 
-var bcrypt = require('bcryptjs');
+
 
 var mdAutenticacion = require('../middlewares/autenticacion');
 
-var Usuarios = require('../models/usuario');
+//var Usuarios = require('../models/usuario');
+// const validarCampos = require('../middlewares/validar-campos');
 
 // ========================================
-// Obtiene todos los usuarios
+// Obtiene todos los usuarios /api/usuarios*/
 // ========================================
-
-/* Ruta: /api/usuarios*/
 
 router.get('/', getUsuarios);
 router.post('/', [
         check('nombre', 'El nombre es obligatorio').not().isEmpty(),
         check('password', 'La contraseña es obligatoria').not().isEmpty(),
         check('email', 'El correo electronico es obligatorio').not().isEmpty(),
+        validarCampos,
     ],
     crearUsuarios
+);
+
+router.put('/:id', [
+        check('nombre', 'El nombre es obligatorio').not().isEmpty(),
+        check('email', 'La correo es obligatorio').not().isEmpty(),
+        check('role', 'El rol es obligatorio').not().isEmpty(),
+    ],
+    actualizarUsuarios
 );
 
 /* router.get('/', (request, response, next) => {
