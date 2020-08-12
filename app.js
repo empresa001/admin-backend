@@ -20,18 +20,10 @@ app.use(express.json());
 
 dbConnection();
 
-// Importando rutas
-/* var appRoutes = require('./routes/app');
-var usuarioRoutes = require('./routes/usuario');
-var loginRoutes = require('./routes/login');
-var hospitalRoutes = require('./routes/hospital');
-var medicoRoutes = require('./routes/medico');
-var busquedaRoutes = require('./routes/busqueda');
-var uploadRoutes = require('./routes/upload');
-var imagenesRoutes = require('./routes/imagenes'); */
-
 // Rutas segundo version
 app.use('/api/usuarios', require('./routes/usuario'));
+app.use('/api/hospitales', require('./routes/hospitales'));
+app.use('/api/medicos', require('./routes/medicos'));
 app.use('/api/login', require('./routes/auth'));
 
 // Conexcion a la base de datos
