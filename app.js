@@ -20,12 +20,6 @@ app.use(express.json());
 
 dbConnection();
 
-// Configuracion CORS
-/* const corsOptions = {
-    origin: 'http://localhost:4200', // Aquí va el origen, puede ser un arreglo
-    optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
-}; //???
-
 // Importando rutas
 /* var appRoutes = require('./routes/app');
 var usuarioRoutes = require('./routes/usuario');
@@ -38,6 +32,7 @@ var imagenesRoutes = require('./routes/imagenes'); */
 
 // Rutas segundo version
 app.use('/api/usuarios', require('./routes/usuario'));
+app.use('/api/login', require('./routes/auth'));
 
 // Conexcion a la base de datos
 /* mongoose.connection.openUri('mongodb://localhost:27017/hospitalDB', (err, res) => {
