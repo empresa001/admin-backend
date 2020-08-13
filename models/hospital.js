@@ -3,11 +3,7 @@ const { Schema, model } = require('mongoose');
 const HospitalSchema = Schema({
     nombre: {
         type: String,
-        required: [true, 'El nombre es necesario']
-    },
-    img: {
-        type: String,
-        required: false
+        required: true
     },
     usuario: {
         required: true,

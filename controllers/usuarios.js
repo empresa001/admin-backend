@@ -5,11 +5,30 @@ const { generarJWT } = require('../helpers/jwt');
 const Usuario = require('../models/usuario');
 
 const getUsuarios = async(req, res) => {
-    const usuarios = await Usuario.find({}, 'nombre email role google');
+
+    const desde = Number(req.query.desde) || 0;
+
+    /*     const usuarios = await Usuario
+            .find({}, 'nombre email role google')
+            .skip(desde)
+            .limit(5);
+
+        const totalRegistros = await Usuario.count(); */
+
+    const [usuarios, totalRegistros] = await Promise.all([
+        Usuario
+        .find({}, 'nombre email role google')
+        .skip(desde)
+        .limit(5),
+
+        Usuario.count()
+    ]);
+
     res.json({
 
         ok: true,
         usuarios: usuarios,
+        totalRegistros
         // uid: req.uid
 
     });
@@ -18,6 +37,8 @@ const getUsuarios = async(req, res) => {
 const crearUsuarios = async(req, res = response) => {
 
     const { email, password } = req.body;
+
+    console.log(req.body, "ESta entrando a crearUsuarios");
 
     try {
 

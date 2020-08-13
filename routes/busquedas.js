@@ -1,4 +1,15 @@
-var express = require('express');
+/* Ruta: api/todo/:busqueda */
+
+const { Router } = require('express');
+const { validarJWT } = require('../middlewares/validar-jwt');
+
+const { getTodo, getDocumentosColeccion } = require('../controllers/busquedas');
+
+const router = Router();
+
+router.get('/:busqueda', validarJWT, getTodo);
+router.get('/coleccion/:tabla/:busqueda', validarJWT, getTodo, getDocumentosColeccion);
+/*var express = require('express');
 
 var app = express();
 
@@ -14,27 +25,6 @@ app.get('/coleccion/:tabla/:busqueda', (req, res) => {
     var tabla = req.params.tabla;
     var regex = new RegExp(busqueda, 'i');
     var promesa;
-
-    switch (tabla) {
-        case 'usuarios':
-            promesa = buscarUsuarios(busqueda, regex);
-            break;
-        case 'medicos':
-            promesa = buscarMedicos(busqueda, regex);
-            break;
-        case 'hospitales':
-            promesa = buscarHospitales(busqueda, regex);
-            break;
-
-        default:
-            return res.status(400).json({
-                ok: false,
-                mensaje: 'Los tipos de busqueda solo son por usuarios, medicos y hospitales',
-                error: { message: 'Tipo de tabla/coleccion no valido' }
-
-            });
-
-    }
 
     promesa.then(data => {
         res.status(200).json({
@@ -126,4 +116,6 @@ function buscarUsuarios(busqueda, regex) {
 
 }
 
-module.exports = app;
+module.exports = app;*/
+
+module.exports = router;

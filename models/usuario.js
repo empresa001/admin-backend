@@ -3,17 +3,31 @@ const { Schema, model } = require('mongoose');
 const UsuarioSchema = Schema({
     nombre: {
         type: String,
-        required: [true, 'El nombre es necesario']
+        required: true
+    },
+    email: {
+        type: String,
+        required: true,
+        unique: true
+    },
+    password: {
+        type: String,
+        required: true,
     },
     img: {
         type: String,
         required: false
     },
-    usuario: {
-        type: Schema.Types.ObjectId,
-        ref: 'Usuario'
-    }
-}, { collection: 'hospitales' });
+    role: {
+        type: String,
+        required: false,
+        default: "USER_ROLE"
+    },
+    google: {
+        type: Boolean,
+        required: false
+    },
+});
 
 UsuarioSchema.method('toJSON', function() {
     const { __v, _id, password, ...object } = this.toObject();
