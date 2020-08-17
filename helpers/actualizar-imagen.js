@@ -31,7 +31,7 @@ const actualizarImagen = async(tipo, id, nombreArchivo) => {
 
         case 'hospitales':
             const hospital = await Hospital.findById(id);
-            if (!medico) {
+            if (!hospital) {
                 console.log('No es un hospital por id');
                 return false;
             }
