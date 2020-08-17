@@ -5,24 +5,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Google SignIn Demo</title>
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
 
-    <meta name="google-signin-client_id" content="131214566624-qvqesnctjbtlapna76i6ovem4ge55mpb.apps.googleusercontent.com">
+    <meta name="google-signin-client_id" content="340051960081-l8knvltqm4rp1lu0kj98qjf98h2smph6.apps.googleusercontent.com">
 </head>
 
 <body>
+    <h1>Google Sign-In</h1>
     <div class="g-signin2" data-onsuccess="onSignIn"></div>
 
     <a href="#" onclick="signOut();">Sign out</a>
-
-    <script>
-        function signOut() {
-            var auth2 = gapi.auth2.getAuthInstance();
-            auth2.signOut().then(function() {
-                console.log('User signed out.');
-            });
-        }
-    </script>
 
     <script>
         function onSignIn(googleUser) {
@@ -37,6 +28,17 @@
             console.log('Token', id_token);
         }
     </script>
+    <!--Cerrar seccion-->
+    <script>
+        function signOut() {
+            var auth2 = gapi.auth2.getAuthInstance();
+            auth2.signOut().then(function() {
+                console.log('User signed out.');
+            });
+        }
+    </script>
+
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
 </body>
 
 </html>

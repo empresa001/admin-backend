@@ -20,6 +20,9 @@ app.use(express.json());
 
 dbConnection();
 
+// Directorio Publico
+app.use(express.static('public'));
+
 // Rutas segundo version
 app.use('/api/usuarios', require('./routes/usuario'));
 app.use('/api/hospitales', require('./routes/hospitales'));
@@ -27,28 +30,6 @@ app.use('/api/medicos', require('./routes/medicos'));
 app.use('/api/todo', require('./routes/busquedas'));
 app.use('/api/upload', require('./routes/uploads'));
 app.use('/api/login', require('./routes/auth'));
-
-// Conexcion a la base de datos
-/* mongoose.connection.openUri('mongodb://localhost:27017/hospitalDB', (err, res) => {
-
-    if (err) throw err;
-    console.log('Base de datos: \x1b[2m%s\x1b[0m', 'online');
-
-}); */
-
-// Server index config
-/* var serveIndex = require('serve-index');
-app.use(express.static(__dirname + '/'));
-app.use('/uploads', serveIndex(__dirname + '/uploads')); */
-
-// Rutas
-/* app.use('/usuario', usuarioRoutes);
-app.use('/hospital', hospitalRoutes);
-app.use('/medico', medicoRoutes);
-app.use('/login', loginRoutes);
-app.use('/busqueda', busquedaRoutes);
-app.use('/upload', uploadRoutes);
-app.use('/img', imagenesRoutes); */
 
 // app.use('/', appRoutes);
 

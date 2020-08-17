@@ -107,13 +107,6 @@ app.post('/google', async(req, res) => {
 
     });
 
-    /*     res.status(200).json({
-            ok: true,
-            mensaje: 'OK!!!',
-            googleUser: googleUser
-        }); */
-
-
 });
 
 // ==================================================
