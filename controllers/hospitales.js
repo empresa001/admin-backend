@@ -1,12 +1,13 @@
 const { response } = require('express');
 const Hospital = require('../models/hospital');
 const hospital = require('../models/hospital');
+const { findByIdAndDelete } = require('../models/hospital');
 
 
 const getHospitales = async(req, res = response) => {
 
-    const hospitales = await Hospital.find()
-        .populate('usuario', 'nombre email');
+    const hospitales = await Hospital.find({}, 'nombre img')
+        .populate('usuario', 'nombre email img');
 
     res.json({
         ok: true,
@@ -44,6 +45,7 @@ const crearHospital = async(req, res = response) => {
 const actualizarHospital = async(req, res = response) => {
 
     const id = req.params.id;
+    const uid = req.uid;
 
     try {
 
@@ -66,13 +68,12 @@ const actualizarHospital = async(req, res = response) => {
         res.json({
             ok: true,
             msg: 'actualizarHospital',
-            hostal: hospitalActualizado
+            hospital: hospitalActualizado
 
         });
 
     } catch (error) {
-
-        res.json({
+        res.status(500).json({
             ok: true,
             msg: 'Hable con el administrador'
         });
@@ -81,11 +82,38 @@ const actualizarHospital = async(req, res = response) => {
 
 };
 
-const borrarHospital = (req, res = response) => {
-    res.json({
-        ok: true,
-        msg: 'borrarHospital'
-    });
+const borrarHospital = async(req, res = response) => {
+
+    const id = req.params.id;
+
+
+    try {
+
+        const hospital = await Hospital.findById(id);
+
+        if (!hospital) {
+            return res.status(404).json({
+                ok: true,
+                msg: 'Hospital no encontrado por id'
+            });
+        }
+
+
+        await Hospital.findByIdAndDelete(id);
+
+        res.json({
+            ok: true,
+            msg: 'Hospital eliminado',
+        });
+
+    } catch (error) {
+        res.status(500).json({
+            ok: false,
+            msg: 'Hable con el administrador'
+        });
+
+    }
+
 };
 
 
