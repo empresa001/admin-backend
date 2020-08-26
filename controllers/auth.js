@@ -76,9 +76,7 @@ const googleSignIn = async(req, res = response) => {
         await usuario.save();
 
         // Generando JWT
-        const token = await generarJWT(usuario.id);
-
-        // await googleVerify(googleToken);
+        const token = await generarJWT(usuarioDB.id);
 
         res.json({
             ok: true,
