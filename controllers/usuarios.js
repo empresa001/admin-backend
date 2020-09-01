@@ -31,8 +31,6 @@ const crearUsuarios = async(req, res = response) => {
 
     const { email, password } = req.body;
 
-    console.log(req.body, "ESta entrando a crearUsuarios");
-
     try {
 
         const existeEmail = await Usuario.findOne({ email });
@@ -63,7 +61,6 @@ const crearUsuarios = async(req, res = response) => {
         });
 
     } catch (error) {
-        console.log(error);
         res.status(500).json({
             ok: false,
             msg: 'Error inesperado... revisar logs'
@@ -76,7 +73,6 @@ const actualizarUsuarios = async(req, res = response) => {
     // TODO: validar token y comprobar si es usuario correcto   
 
     const uid = req.params.id;
-    // const { nombre, role, email } = req.body;
 
     try {
 
@@ -108,12 +104,10 @@ const actualizarUsuarios = async(req, res = response) => {
 
         res.json({
             ok: true,
-            uid: uid,
             usuario: usuarioActualizado
         });
 
     } catch (error) {
-        console.log(error);
         res.status(500).json({
             ok: false,
             msg: 'Error inesperado...'
