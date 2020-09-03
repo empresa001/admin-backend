@@ -1,14 +1,13 @@
-const { response, request } = require("express");
 const path = require('path');
 const fs = require('fs');
 
+const { response, request } = require("express");
 const { v4: uuidv4 } = require('uuid');
 const { actualizarImagen } = require("../helpers/actualizar-imagen");
 
 const fileUpload = (req = request, res = response) => {
 
     const tipo = req.params.tipo;
-    console.log(tipo);
     const id = req.params.id;
 
     // tipos de collection
@@ -18,7 +17,6 @@ const fileUpload = (req = request, res = response) => {
         return res.status(400).json({
             ok: false,
             mensaje: 'Tipo de coleccion no es valida',
-            // errors: { message: 'Tipo de coleccion no es valida' }
         });
     }
 
@@ -34,14 +32,12 @@ const fileUpload = (req = request, res = response) => {
     // Obtener el nombre del archivo
     const file = req.files.img;
 
-    // Extraer extencion
-    const nombreCortado = file.name.split('.'); // david.1.12.jpg
+    const nombreCortado = file.name.split('.'); // wolverine.1.3.jpg
     const extensionArchivo = nombreCortado[nombreCortado.length - 1];
 
     // Validacion de extension
-    var extensionesValidas = ['png', 'jpg', 'jpeg', 'gif'];
-
-    if (!extensionesValidas.includes(extensionArchivo) < 0) {
+    const extensionesValidas = ['png', 'jpg', 'jpeg', 'gif'];
+    if (!extensionesValidas.includes(extensionArchivo)) {
         return res.status(400).json({
             ok: false,
             mensaje: 'Archivo con extension no valida',
@@ -49,14 +45,12 @@ const fileUpload = (req = request, res = response) => {
         });
     }
 
-    // Nombre de archivo personalizado 
-    //12345-123.png
     const nombreArchivo = `${uuidv4()}.${extensionArchivo}`; // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
 
     //Path de la imagen
     const path = `./uploads/${tipo}/${nombreArchivo}`;
 
-    file.mv(path, err => {
+    file.mv(path, (err) => {
 
         if (err) {
             return res.status(500).json({
@@ -85,6 +79,8 @@ const retornaImagen = (req, res = response) => {
     const foto = req.params.foto;
 
     const pathImg = path.join(__dirname, `../uploads/${tipo}/${foto}`);
+
+    console.log(pathImg, 'pathImg');
 
     // Imagen por defecto
     if (fs.existsSync(pathImg)) {
