@@ -80,8 +80,6 @@ const retornaImagen = (req, res = response) => {
 
     const pathImg = path.join(__dirname, `../uploads/${tipo}/${foto}`);
 
-    console.log(pathImg, 'pathImg');
-
     // Imagen por defecto
     if (fs.existsSync(pathImg)) {
         res.sendFile(pathImg);

@@ -39,11 +39,10 @@ const login = async(req, res = response) => {
             token
         });
     } catch (error) {
-        console.log(error);
         res.status(500).json({
             ok: false,
             msg: 'Error en la el logueo'
-        })
+        });
     }
 };
 
