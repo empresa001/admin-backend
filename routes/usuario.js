@@ -30,10 +30,7 @@ router.put('/:id', [
     actualizarUsuarios
 );
 
-router.delete('/:id', [
-
-    ],
-    validarJWT,
+router.delete('/:id', [validarJWT, validarADMIN_ROLE],
     borrarUsuarios
 );
 
