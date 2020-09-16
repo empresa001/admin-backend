@@ -40,16 +40,16 @@ const login = async(req, res = response, next) => {
             token,
             menu: getMenu(usuarioDB.role)
         });
-        next();
     } catch (error) {
         res.status(500).json({
             ok: false,
             msg: 'Error en la el logueo'
         });
     }
+    next();
 };
 
-const googleSignIn = async(req, res = response) => {
+const googleSignIn = async(req, res = response, next) => {
 
     const googleToken = req.body.token;
 
@@ -85,14 +85,13 @@ const googleSignIn = async(req, res = response) => {
             token,
             menu: getMenu(usuario.role)
         });
-        next();
     } catch (error) {
         res.status(400).json({
             ok: false,
             msg: 'Token  no es correcto',
         });
     }
-
+    next();
 
 };
 
