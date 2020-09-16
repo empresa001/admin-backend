@@ -64,7 +64,42 @@ const validarADMIN_ROLE = async(req, res, next) => {
     }
 };
 
+const validarADMIN_ROLE_o_MismoUsuario = async(req, res, next) => {
+
+    const uid = req.uid;
+    const id = req.params.id;
+
+    try {
+
+        const usuarioBD = await Usuario.findById(uid);
+
+        if (!usuarioBD) {
+            return res.status(404).json({
+                ok: false,
+                mgs: 'Usuario no existe'
+            });
+        }
+
+        if (usuarioBD.role === 'ADMIN_ROLE' || uid === id) {
+            next();
+        } else {
+            return res.status(403).json({
+                ok: false,
+                mgs: 'Usuario sin privilegio de administrador'
+            });
+        }
+
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({
+            ok: false,
+            msg: 'No tienen los privilegios para acceder'
+        });
+    }
+};
+
 module.exports = {
     validarJWT,
-    validarADMIN_ROLE
+    validarADMIN_ROLE,
+    validarADMIN_ROLE_o_MismoUsuario
 };
