@@ -46,7 +46,6 @@ const login = async(req, res = response, next) => {
             msg: 'Error en la el logueo'
         });
     }
-    next();
 };
 
 const googleSignIn = async(req, res = response, next) => {
@@ -91,7 +90,6 @@ const googleSignIn = async(req, res = response, next) => {
             msg: 'Token  no es correcto',
         });
     }
-    next();
 
 };
 
