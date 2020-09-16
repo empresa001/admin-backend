@@ -6,7 +6,7 @@ const { generarJWT } = require('../helpers/jwt');
 const { googleVerify } = require('../helpers/google-verify');
 const { getMenu } = require('../helpers/menu');
 
-const login = async(req, res = response) => {
+const login = async(req, res = response, next) => {
 
     const { email, password } = req.body;
 
@@ -40,6 +40,7 @@ const login = async(req, res = response) => {
             token,
             menu: getMenu(usuarioDB.role)
         });
+        next();
     } catch (error) {
         res.status(500).json({
             ok: false,
@@ -84,7 +85,7 @@ const googleSignIn = async(req, res = response) => {
             token,
             menu: getMenu(usuario.role)
         });
-
+        next();
     } catch (error) {
         res.status(400).json({
             ok: false,
