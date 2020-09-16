@@ -4,8 +4,8 @@
     "description": "Servidor back-end del curso angular avanzado AdminPro",
     "main": "index.js",
     "scripts": {
-        "start": "nodemon app.js",
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "start:dev": "nodemon app.js",
+        "start": "node app.js"
     },
     "author": "David Gabriel Montaño Rocha",
     "license": "ISC",
