@@ -33,6 +33,10 @@ app.use('/api/login', require('./routes/auth'));
 
 // app.use('/', appRoutes);
 
+app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'public/index'));
+});
+
 // Escuchando peticion de inicio
 
 app.listen(process.env.PORT, () => {
