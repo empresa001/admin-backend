@@ -4,7 +4,8 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 
-const { dbConnection } = require('./database/config');
+const { dbConnectionMongosse } = require('./database/configm');
+const { dbConnectionInformix } = require('./database/configi');
 
 // var mongoose = require('mongoose');
 // var bodyParser = require('body-parser');
@@ -18,7 +19,8 @@ app.use(cors());
 // lectura y parseo
 app.use(express.json());
 
-dbConnection();
+dbConnectionMongosse();
+dbConnectionInformix();
 
 // Directorio Publico
 app.use(express.static('public'));
@@ -31,7 +33,7 @@ app.use('/api/todo', require('./routes/busquedas'));
 app.use('/api/upload', require('./routes/uploads'));
 app.use('/api/login', require('./routes/auth'));
 
-// app.use('/', appRoutes);
+app.use('/api/monedas', require('./routes/monedas'));
 
 app.get('*', (req, res) => {
     res.sendFile(path.resolve(__dirname, 'public/index.html'));

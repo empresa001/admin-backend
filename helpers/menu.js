@@ -19,6 +19,21 @@ const getMenu = (role = 'USER_ROLE') => {
                 { titulo: 'Hospitales', url: 'hospitales' },
                 { titulo: 'Medicos', url: 'medicos' },
             ]
+        },
+        {
+            titulo: 'Clasificadores',
+            icono: 'mdi mdi-folder-lock-open',
+            submenu: [
+                // { titulo: 'Usuarios', url: 'usuarios' },
+                { titulo: 'Monedas', url: 'monedas' },
+            ]
+        },
+        {
+            titulo: 'Reportes',
+            icono: 'mdi mdi-file-multiple',
+            submenu: [
+                { titulo: 'Reportes Contabilidad', url: 'reportes' },
+            ]
         }
 
     ];
